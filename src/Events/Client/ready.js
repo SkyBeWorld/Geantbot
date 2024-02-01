@@ -13,7 +13,7 @@ module.exports = {
 
         if (!config.mongodbURL) return;
         connect(config.mongodbURL).then(() => {
-            console.log("database successfully connected !")
-        }).catch(err => console.log("An error has been detected : \n" + err))
+            console.log("[DATABASE] database successfully connected !")
+        }).catch(err => console.log("[DATABASE] An error has been detected : \n" + err))
     }
 }
