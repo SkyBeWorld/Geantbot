@@ -44,8 +44,8 @@ module.exports.Client = client
 
 app.enable("trust proxy")
 app.set("etag", false)
-app.use(express.static(__dirname + "/src/website"))
-app.set("views", __dirname)
+app.use(express.static(__dirname + "/website"))
+app.set("views", `${__dirname}`)
 app.set("view engine", "ejs")
 app.use(cookieParser())
 app.use(urlencodedParser)
@@ -54,7 +54,7 @@ app.use(express.json())
 let files = fs.readdirSync("./src/website/public").filter(f => f.endsWith(".js"))
 const table = new ascii().setHeading("Website", "Status")
 files.forEach(f => {
-    const file = require(`./src/website/public/${f}`)
+    const file = require(`../src/website/public/${f}`)
     if (file && file.name) {
         app.get(file.name, file.run)
 
@@ -68,5 +68,5 @@ console.log(table.toString())
 app.listen(config.port, () => console.log(`app listen at port : ${config.port}`))
 
 app.get('*', (req, res) => {
-  res.sendFile(__dirname + "/src/website/html/404.html")
+  res.sendFile(__dirname + "/website/html/404.html")
 })
