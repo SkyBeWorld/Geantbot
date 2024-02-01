@@ -12,7 +12,7 @@ module.exports = {
         console.log(`${client.user.tag} is now online`)
 
         if (!config.mongodbURL) return;
-        connect(config.mongodbURL, {}).then(() => {
+        connect(config.mongodbURL).then(() => {
             console.log("database successfully connected !")
         }).catch(err => console.log("An error has been detected : \n" + err))
     }
