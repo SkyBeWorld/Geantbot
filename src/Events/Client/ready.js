@@ -1,4 +1,6 @@
 const { Client, ActivityType, Status, Events } = require("discord.js")
+const { connect } = require("mongoose")
+const config = require("../../../config.json")
 
 module.exports = {
     name: Events.ClientReady,
@@ -8,5 +10,10 @@ module.exports = {
      */
     async execute(client) {
         console.log(`${client.user.tag} is now online`)
+
+        if (!config.mongodbURL) return;
+        connect(config.mongodbURL, {}).then(() => {
+            console.log("database successfully connected !")
+        }).catch(err => console.log("An error has been detected : \n" + err))
     }
 }
