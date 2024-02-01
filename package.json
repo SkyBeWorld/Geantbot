@@ -1,0 +1,20 @@
+{
+  "name": "geantbot",
+  "version": "3.0.0",
+  "description": "Geantbot",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "author": "GeantWorld",
+  "license": "ISC",
+  "dependencies": {
+    "ascii-table": "^0.0.9",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "mongoose": "^8.1.1"
+  }
+}
