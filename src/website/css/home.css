@@ -20,7 +20,7 @@ body {
     display: flex;
     backdrop-filter: blur(10px);
     width: 85%;
-    height: 100px;
+    height: 85px;
     justify-content: center;
     align-items: center;
     background: linear-gradient(75deg, rgb(0, 56, 34, 0), rgb(0, 56, 34, 0));
@@ -83,4 +83,68 @@ body {
 .navbar .selected {
     color: green;
     font-size: 25px;
+}
+
+.welcome .left {
+    width: 50%;
+    margin-left: 0%;
+    float: left;
+}
+
+.welcome .right {
+    width: 50%;
+    float: right;
+}
+
+.MainLogo {
+    width: 500px; 
+    height: 500px;
+    margin-right: 100px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .menu {
+        display: block;
+    }
+
+    .navbar {
+        position: fixed;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(75deg, rgb(0, 147, 37, 0.5), rgb(0, 56, 34, 0));
+        backdrop-filter: blur(25px);
+        display: none;
+        text-align: left;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+        border-bottom: 2px solid rgba(0, 255, 0, 0.2);
+    }
+
+    .navbar.active {
+        display: block;
+    }
+
+    .navbar a {
+        display: block;
+        margin-top: 25px;
+    }
+
+    .MainLogo {
+        width: 300px; 
+        height: 300px
+    }
+
+    .welcome .right {
+        float: none;
+        width: 100%;
+    }
+    
+    .welcome .left {
+        width: 100%;
+        float: none;
+    }
+
+    .header .logo {
+        margin-left: 5px;
+    }
 }
