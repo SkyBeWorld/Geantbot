@@ -138,6 +138,12 @@ body {
 #server{
     margin-top: 100%;
 }
+.server {
+    list-style: none;
+    display: inline-block;
+    margin-left: 15px;
+    margin-right: 15px;
+}
 
 @media only screen and (max-width: 1000px) {
     .menu {
