@@ -26,21 +26,7 @@ client.login(process.env.token).then(async (e) => {
     console.log("[ERROR]: " + err)
 })
 
-// Oauth2
-
-const oauth = new DiscordOauth2({
-    clientId: config.clientID,
-    clientSecret: config.clientSecret,
-    redirectUri: `${config.domain}/callback`
-})
-module.exports.oauth = oauth
-
-// collections
-
-client.commands = new Collection()
-module.exports.Client = client
-
-// website
+// express
 
 app.enable("trust proxy")
 app.set("etag", false)
@@ -50,6 +36,22 @@ app.set("view engine", "ejs")
 app.use(cookieParser())
 app.use(urlencodedParser)
 app.use(express.json())
+
+// Oauth2
+
+const oauth = new DiscordOauth2({
+    clientId: config.clientID,
+    clientSecret: config.clientSecret,
+    redirectUri: `${config.localhost}/callback`
+})
+module.exports.oauth = oauth
+
+// collections
+
+client.commands = new Collection()
+module.exports.Client = client
+
+// website
 
 let files = fs.readdirSync("./src/website/public").filter(f => f.endsWith(".js"))
 const table = new ascii().setHeading("Website", "Status")
