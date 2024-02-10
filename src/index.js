@@ -42,7 +42,7 @@ app.use(express.json())
 const oauth = new DiscordOauth2({
     clientId: config.clientID,
     clientSecret: config.clientSecret,
-    redirectUri: `${config.localhost}/callback`
+    redirectUri: `${config.domain}/callback`
 })
 module.exports.oauth = oauth
 
