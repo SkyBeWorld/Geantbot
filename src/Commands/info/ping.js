@@ -3,7 +3,13 @@ const { SlashCommandBuilder, CommandInteraction, PermissionFlagsBits, ChatInputC
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("ping")
-    .setDescription("ping the bot"),
+    .setNameLocalizations({
+        fr: "ping"
+    })
+    .setDescription("get ping the bot")
+    .setDescriptionLocalizations({
+        fr: "avoir le ping le bot"
+    }),
     /**
      * @param {Client} client,
      * @param {CommandInteraction} interaction

@@ -5,10 +5,34 @@ const { translation } = require("../../utils/translation")
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("kick")
+    .setNameLocalizations({
+        fr: "expulser"
+    })
     .setDescription("kick someone")
+    .setDescriptionLocalizations({
+        fr: "expulser quelqu'un"
+    })
     .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
-    .addUserOption(option => option.setName("user").setDescription("user to kick").setRequired(true))
-    .addStringOption(option => option.setName("reason").setDescription("the reason of the kick").setRequired(false)),
+    .addUserOption(option => 
+        option.setName("user")
+        .setNameLocalizations({
+            fr: "utilisateur"
+        })
+        .setDescription("user to kick")
+        .setDescriptionLocalizations({
+            fr: "l'utilisateur a expulser"
+        })
+        .setRequired(true))
+    .addStringOption(option => 
+        option.setName("reason")
+        .setNameLocalizations({
+            fr: "raison"
+        })
+        .setDescription("the reason of the kick")
+        .setDescriptionLocalizations({
+            fr: "la raison de le expultion"
+        })
+        .setRequired(false)),
     /**
      * @param {Client} client,
      * @param {CommandInteraction} interaction

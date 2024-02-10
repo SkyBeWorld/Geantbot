@@ -5,10 +5,34 @@ const { translation } = require("../../utils/translation")
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("ban")
+    .setNameLocalizations({
+        fr: "bannir"
+    })
     .setDescription("ban someone")
+    .setDescriptionLocalizations({
+        fr: "bannir quelqu'un"
+    })
     .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
-    .addUserOption(option => option.setName("user").setDescription("user to ban").setRequired(true))
-    .addStringOption(option => option.setName("reason").setDescription("the reason of the ban").setRequired(false)),
+    .addUserOption(option => 
+        option.setName("user")
+        .setNameLocalizations({
+            fr: "utilisateur"
+        })
+        .setDescription("user to ban")
+        .setDescriptionLocalizations({
+            fr: "l'utilisateur a bannir"
+        })
+        .setRequired(true))
+    .addStringOption(option => 
+        option.setName("reason")
+        .setNameLocalizations({
+            fr: "raison"
+        })
+        .setDescription("the reason of the ban")
+        .setDescriptionLocalizations({
+            fr: "la raison de le bannir"
+        })
+        .setRequired(false)),
     /**
      * @param {Client} client,
      * @param {CommandInteraction} interaction

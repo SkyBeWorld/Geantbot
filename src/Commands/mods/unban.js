@@ -5,9 +5,21 @@ const { translation } = require("../../utils/translation")
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("unban")
+    .setNameLocalizations({
+        fr: "débannir"
+    })
     .setDescription("unban someone")
+    .setDescriptionLocalizations({
+        fr: "débannir quelqu'un"
+    })
     .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
-    .addStringOption(option => option.setName("userid").setDescription("user to unban").setRequired(true)),
+    .addStringOption(option => 
+        option.setName("userid")
+        .setDescription("user to unban")
+        .setDescriptionLocalizations({
+            fr: "l'utilisateur a débannir"
+        })
+        .setRequired(true)),
     /**
      * @param {Client} client,
      * @param {CommandInteraction} interaction

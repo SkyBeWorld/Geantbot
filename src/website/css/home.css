@@ -131,7 +131,7 @@ body {
 
 .servers {
     float: inline-start;
-    height: 500px;
+    height: 250px;
     width: 100%;
 }
 
@@ -143,6 +143,21 @@ body {
     display: inline-block;
     margin-left: 15px;
     margin-right: 15px;
+}
+
+.features {
+    float: inline-start;
+    height: auto;
+    width: 100%;
+}
+
+
+#features {
+    text-decoration: underline;
+}
+
+#PopularText {
+    text-decoration: underline;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -193,5 +208,17 @@ body {
 
     .MainLogo {
         margin-right: 0px;
+    }
+
+    .servers {
+        height: 310px;
+    }
+
+    #Ban {
+        width: 350px;
+    }
+
+    #Kick {
+        width: 350px;
     }
 }
