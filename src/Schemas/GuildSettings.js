@@ -12,4 +12,16 @@ module.exports = model("GuildSetting", new Schema({
     language: {
         type: String
     },
+    WelcomeChannel: {
+        type: String
+    },
+    WelcomeMessage: {
+        type: String
+    },
+    GoodbyeChannel : {
+        type: String
+    },
+    GoodbyeMessage: {
+        type: String
+    }
 }))

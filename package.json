@@ -4,7 +4,7 @@
   "description": "Geantbot",
   "main": "src/index.js",
   "scripts": {
-    "test": "nodemon .",
+    "debug": "nodemon .",
     "start": "node ."
   },
   "author": "GeantWorld",
