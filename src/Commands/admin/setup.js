@@ -34,7 +34,12 @@ module.exports = {
         const data = await GuildData.findOne({GuildId: guild.id}).catch(err => {  })
         if (!data) return interaction.editReply({content: `You server doesn't have any datas in the database! We are creating your datas and try again...`}).then(async (e) => {
             await GuildData.create({
-                GuildId: guild.id
+                GuildId: guild.id,
+                language: "english",
+                WelcomeChannel: "0",
+                WelcomeMessage: "Welcome to {server.name} {user.mention}",
+                GoodbyeChannel: "0",
+                GoodbyeMessage: "Goodbye {user.name}"
             })
         });
 
@@ -149,6 +154,36 @@ module.exports = {
                 })
                 break;
             case false:
+                embed.setDescription(`this embed is not translated.\n\n> Language: ${data.language}\n> Welcome Channel: <#${data.WelcomeChannel}>\n> Welcome message: ${data.WelcomeMessage}\n> Goodbye Channel: <#${data.GoodbyeChannel}>\n> Goodbye message: ${data.GoodbyeMessage}\n\n\n## You can edit with buttons below!`)
+
+                const rows = new ActionRowBuilder().addComponents(
+                    new ButtonBuilder()
+                    .setStyle(ButtonStyle.Secondary)
+                    .setCustomId("language-edit")
+                    .setLabel(`${await translation("Language", guild)}`),
+
+                    new ButtonBuilder()
+                    .setStyle(ButtonStyle.Secondary)
+                    .setCustomId("welcome-channel")
+                    .setLabel(`${await translation("Welcome Channel", guild)}`),
+
+                    new ButtonBuilder()
+                    .setStyle(ButtonStyle.Secondary)
+                    .setCustomId("welcome-message")
+                    .setLabel(`${await translation("Welcome message", guild)}`),
+
+                    new ButtonBuilder()
+                    .setStyle(ButtonStyle.Secondary)
+                    .setCustomId("goodbye-channel")
+                    .setLabel(`${await translation("Goodbye Channel", guild)}`),
+
+                    new ButtonBuilder()
+                    .setStyle(ButtonStyle.Secondary)
+                    .setCustomId("goodbye-message")
+                    .setLabel(`${await translation("Goodbye message", guild)}`),
+                )
+
+                await interaction.editReply({embeds: [embed], components: [rows]})
                 break;
             default:
                 break;
