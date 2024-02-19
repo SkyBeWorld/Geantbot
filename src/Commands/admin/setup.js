@@ -1,6 +1,7 @@
-const { SlashCommandBuilder, CommandInteraction, PermissionFlagsBits, ChatInputCommandInteraction, Client, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Events } = require("discord.js")
+const { SlashCommandBuilder, CommandInteraction, PermissionFlagsBits, ChatInputCommandInteraction, Client, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Events, ChannelSelectMenuBuilder, ChannelType } = require("discord.js")
 const ms = require("ms") 
 const { translation } = require("../../utils/translation")
+const GuildData = require("../../Schemas/GuildSettings")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -28,12 +29,18 @@ module.exports = {
         const { guild } = interaction
         const value = interaction.options.getBoolean("fast-setup")
         await interaction.deferReply({ephemeral: true})
-        const embed = new EmbedBuilder()
-        .setTitle(`${await translation("Setting up your server!", guild)}`).setColor("Orange")
+        const embed = new EmbedBuilder().setColor("Random")
+        .setTitle(`${await translation("Setting up your server!", guild)}`)
+        const data = await GuildData.findOne({GuildId: guild.id}).catch(err => {  })
+        if (!data) return interaction.editReply({content: `You server doesn't have any datas in the database! We are creating your datas and try again...`}).then(async (e) => {
+            await GuildData.create({
+                GuildId: guild.id
+            })
+        });
 
         switch (value) {
             case true:
-                embed.setDescription(`${await translation("Let's starting.\n\nWe'll help you for setup your server!", guild)}`)
+                embed.setDescription(`${await translation("Let's starting.\n\nWe'll help you for setup your server!\n\n**Attention, this is replace your old data in the database**", guild)}`)
 
                 const row = new ActionRowBuilder().addComponents(
                     new ButtonBuilder()
@@ -45,6 +52,8 @@ module.exports = {
                 const m = await interaction.editReply({embeds: [embed], components: [row]})
 
                 client.on(Events.InteractionCreate, async (i) => {
+                    if (i.user.id !== interaction.user.id) return;
+                    // buttons
                     if (i.customId === "next-setup") {
                         embed.setDescription(`${await translation(`What language do you speak?\n\n\n> 🇫🇷 French\n> 🇬🇧 English`, guild)}`)
 
@@ -63,19 +72,83 @@ module.exports = {
                         )
 
                         await interaction.editReply({embeds: [embed], components: [row]})
-                    } else if (i.customId === "english") {
-                        embed.setDescription(`${await translation(`You server server is configured!`, guild)}`)
+                    } else if (i.customId === "next-welcome") {
+                        embed.setDescription(`${await translation(`Time for configure goodbye Channel`, guild)}`)
+                        const row = new ActionRowBuilder().addComponents(
+                            new ChannelSelectMenuBuilder()
+                            .setChannelTypes(ChannelType.GuildText)
+                            .setCustomId("channel-goodbye")
+                            .setMinValues(1)
+                            .setMaxValues(1)
+                            .setPlaceholder(`${await translation("Select the channel", guild)}`)
+                        )
+
+                        await interaction.editReply({embeds: [embed], components: [row]})
+                    } else if (i.customId === "next-goodbye") {
+                        embed.setDescription(`${await translation(`Well done. You finished to configure your server, see you soon\n\n## If you want configure welcome message, goodbye message please go to the dashboard or use the setup panel.`, guild)}`)
 
                         await interaction.editReply({embeds: [embed], components: []})
+                        await data.save()
+                    }
+                    
+                    // languages
+                    if (i.customId === "english") {
+                        data.language = "english"
+                        embed.setDescription(`${await translation(`Time for configure Welcome Channel`, guild)}`)
+                        const row = new ActionRowBuilder().addComponents(
+                            new ChannelSelectMenuBuilder()
+                            .setChannelTypes(ChannelType.GuildText)
+                            .setCustomId("channel-welcome")
+                            .setMinValues(1)
+                            .setMaxValues(1)
+                            .setPlaceholder(`${await translation("Select the channel", guild)}`)
+                        )
+
+                        await interaction.editReply({embeds: [embed], components: [row]})
                     } else if (i.customId === "french") {
-                        embed.setDescription(`${await translation(`You server server is configured!`, guild)}`)
+                        data.language = "french"
+                        embed.setDescription(`${await translation(`Time for configure Welcome Channel`, guild)}`)
+                        const row = new ActionRowBuilder().addComponents(
+                            new ChannelSelectMenuBuilder()
+                            .setChannelTypes(ChannelType.GuildText)
+                            .setCustomId("channel-welcome")
+                            .setMinValues(1)
+                            .setMaxValues(1)
+                            .setPlaceholder(`${await translation("Select the channel", guild)}`)
+                        )
 
-                        await interaction.editReply({embeds: [embed], components: []})
+                        await interaction.editReply({embeds: [embed], components: [row]})
+                    }
+
+                    // channels
+                    if (i.customId === "channel-welcome") {
+                        data.WelcomeChannel = i.values[0]
+                        embed.setDescription(`${await translation(`You selected <#${i.values[0]}>\n\nclick next for configure goodbye channel`, guild)}`)
+
+                        const row = new ActionRowBuilder().addComponents(
+                            new ButtonBuilder()
+                            .setStyle(ButtonStyle.Primary)
+                            .setCustomId("next-welcome")
+                            .setLabel(`${await translation("Next", guild)}`),
+                        )
+
+                        await interaction.editReply({embeds: [embed], components: [row]})
+                    } else if (i.customId === "channel-goodbye") {
+                        data.GoodbyeChannel = i.values[0]
+                        embed.setDescription(`${await translation(`You selected <#${i.values[0]}>\n\nclick next for continue the configuration!`, guild)}`)
+
+                        const row = new ActionRowBuilder().addComponents(
+                            new ButtonBuilder()
+                            .setStyle(ButtonStyle.Primary)
+                            .setCustomId("next-goodbye")
+                            .setLabel(`${await translation("Next", guild)}`),
+                        )
+
+                        await interaction.editReply({embeds: [embed], components: [row]})
                     }
                 })
                 break;
             case false:
-
                 break;
             default:
                 break;
