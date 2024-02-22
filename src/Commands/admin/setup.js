@@ -184,6 +184,77 @@ module.exports = {
                 )
 
                 await interaction.editReply({embeds: [embed], components: [rows]})
+
+                client.on(Events.InteractionCreate, async (e) => {
+                    // main buttons
+                    if (e.customId === "language-edit") {
+                        embed.setDescription(`${await translation(`the current language is ${data.language}\n\n\nselect a supported language!`, guild)}`)
+
+                        const row = new ActionRowBuilder().addComponents(
+                            new ButtonBuilder()
+                            .setStyle(ButtonStyle.Secondary)
+                            .setCustomId("french-edit")
+                            .setLabel("French")
+                            .setEmoji("🇫🇷"),
+
+                            new ButtonBuilder()
+                            .setStyle(ButtonStyle.Secondary)
+                            .setCustomId("english-edit")
+                            .setLabel("English")
+                            .setEmoji("🇬🇧"),
+                        )
+
+                        await interaction.editReply({embeds: [embed], components: [row]})
+                    } else if (e.customId === "welcome-channel") {
+                        embed.setDescription(`${await translation(`the current channel is ${data.WelcomeChannel}\n\n\nselect the channel!`, guild)}`)
+
+                        const row = new ActionRowBuilder().addComponents(
+                            new ChannelSelectMenuBuilder()
+                            .setChannelTypes(ChannelType.GuildText)
+                            .setCustomId("channel-welcome-edit")
+                            .setMinValues(1)
+                            .setMaxValues(1)
+                            .setPlaceholder(`${await translation("Select the channel", guild)}`)
+                        )
+
+                        await interaction.editReply({embeds: [embed], components: [row]})
+                    } else if (e.customId === "welcome-message") {
+                        // put modal here
+                    } else if (e.customId === "goodbye-channel") {
+                        embed.setDescription(`${await translation(`the current channel is ${data.GoodbyeChannel}\n\n\nselect the channel!`, guild)}`)
+
+                        const row = new ActionRowBuilder().addComponents(
+                            new ChannelSelectMenuBuilder()
+                            .setChannelTypes(ChannelType.GuildText)
+                            .setCustomId("channel-goodbye-edit")
+                            .setMinValues(1)
+                            .setMaxValues(1)
+                            .setPlaceholder(`${await translation("Select the channel", guild)}`)
+                        )
+
+                        await interaction.editReply({embeds: [embed], components: [row]})
+                    } else if (e.customId === "goodbye-message") {
+                        // put modal here
+                    }
+
+
+                    // others buttons
+                    if (e.customId === "french-edit") {
+                        data.language === "french"
+                        embed.setDescription(`${await translation("Sucessfully edited the database!", guild)}`)
+
+                        await data.save()
+
+                        await interaction.editReply({embeds: [embed], components: []})
+                    } else if (e.customId === "english-edit") {
+                        data.language = "english"
+                        embed.setDescription(`${await translation("Sucessfully edited the database!", guild)}`)
+
+                        await data.save()
+
+                        await interaction.editReply({embeds: [embed], components: []})
+                    }
+                })
                 break;
             default:
                 break;
