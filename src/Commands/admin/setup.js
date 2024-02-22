@@ -154,7 +154,7 @@ module.exports = {
                 })
                 break;
             case false:
-                embed.setDescription(`this embed is not translated.\n\n> Language: ${data.language}\n> Welcome Channel: <#${data.WelcomeChannel}>\n> Welcome message: ${data.WelcomeMessage}\n> Goodbye Channel: <#${data.GoodbyeChannel}>\n> Goodbye message: ${data.GoodbyeMessage}\n\n\n## You can edit with buttons below!`)
+                embed.setDescription(`this embed is not translated.\n\n> Language: ${data.language}\n> Welcome Channel: <#${data.WelcomeChannel || ""}>\n> Welcome message: ${data.WelcomeMessage || ""}\n> Goodbye Channel: <#${data.GoodbyeChannel || ""}>\n> Goodbye message: ${data.GoodbyeMessage || ""}\n\n\n## You can edit with buttons below!`)
 
                 const rows = new ActionRowBuilder().addComponents(
                     new ButtonBuilder()
@@ -235,6 +235,20 @@ module.exports = {
                     } else if (e.customId === "english-edit") {
                         data.language = "english"
                         embed.setDescription(`${await translation("Sucessfully edited the database!", guild)}`)
+
+                        await data.save()
+
+                        await interaction.editReply({embeds: [embed], components: []})
+                    } else if (e.customId === "channel-welcome-edit") {
+                        data.WelcomeChannel = e.values[0]
+                        embed.setDescription(`${await translation("Successfully edited the database!", guild)}`)
+
+                        await data.save()
+
+                        await interaction.editReply({embeds: [embed], components: []})
+                    } else if (e.customId === "channel-goodbye-edit") {
+                        data.GoodbyeChannel = e.values[0]
+                        embed.setDescription(`${await translation("Successfully edited the database!", guild)}`)
 
                         await data.save()
 
