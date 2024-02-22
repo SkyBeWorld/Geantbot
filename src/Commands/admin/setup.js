@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, CommandInteraction, PermissionFlagsBits, ChatInputCommandInteraction, Client, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Events, ChannelSelectMenuBuilder, ChannelType } = require("discord.js")
+const { SlashCommandBuilder, CommandInteraction, PermissionFlagsBits, ChatInputCommandInteraction, Client, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Events, ChannelSelectMenuBuilder, ChannelType, ModalBuilder, TextInputBuilder, TextInputStyle } = require("discord.js")
 const ms = require("ms") 
 const { translation } = require("../../utils/translation")
 const GuildData = require("../../Schemas/GuildSettings")
@@ -169,18 +169,8 @@ module.exports = {
 
                     new ButtonBuilder()
                     .setStyle(ButtonStyle.Secondary)
-                    .setCustomId("welcome-message")
-                    .setLabel(`${await translation("Welcome message", guild)}`),
-
-                    new ButtonBuilder()
-                    .setStyle(ButtonStyle.Secondary)
                     .setCustomId("goodbye-channel")
                     .setLabel(`${await translation("Goodbye Channel", guild)}`),
-
-                    new ButtonBuilder()
-                    .setStyle(ButtonStyle.Secondary)
-                    .setCustomId("goodbye-message")
-                    .setLabel(`${await translation("Goodbye message", guild)}`),
                 )
 
                 await interaction.editReply({embeds: [embed], components: [rows]})
@@ -218,8 +208,6 @@ module.exports = {
                         )
 
                         await interaction.editReply({embeds: [embed], components: [row]})
-                    } else if (e.customId === "welcome-message") {
-                        // put modal here
                     } else if (e.customId === "goodbye-channel") {
                         embed.setDescription(`${await translation(`the current channel is ${data.GoodbyeChannel}\n\n\nselect the channel!`, guild)}`)
 
@@ -233,8 +221,6 @@ module.exports = {
                         )
 
                         await interaction.editReply({embeds: [embed], components: [row]})
-                    } else if (e.customId === "goodbye-message") {
-                        // put modal here
                     }
 
 
@@ -253,6 +239,11 @@ module.exports = {
                         await data.save()
 
                         await interaction.editReply({embeds: [embed], components: []})
+                    }
+
+                    // cancel
+                    if (e.customId === "cancel") {
+                        await interaction.editReply({content: `${await translation("Canceled", guild)}`, embeds: [], components: []})
                     }
                 })
                 break;
