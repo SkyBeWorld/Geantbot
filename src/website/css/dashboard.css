@@ -67,3 +67,80 @@ body {
     color: green;
     font-size: 25px;
 }
+
+.head {
+    height: 150px;
+    margin-left: 52px;
+}
+
+.servers {
+    height: auto;
+    text-align: center;
+}
+
+.server_list {
+    list-style: none;
+}
+
+.server .Text {
+    margin-bottom: 25px;
+}
+
+.server {
+    display: inline-block;
+    margin-left: 25px;
+    margin-right: 25px;
+    width: auto;
+    height: 215px;
+}
+
+.access {
+    width: auto;
+    height: auto;  
+}
+
+.access .icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    margin-bottom: 5px;
+}
+
+.access .Text {
+	font-size: 25px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .menu {
+        display: block;
+    }
+
+    .navbar {
+        position: fixed;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(75deg, rgb(0, 147, 37, 0.5), rgb(0, 56, 34, 0));
+        backdrop-filter: blur(25px);
+        display: none;
+        text-align: left;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+        border-bottom: 2px solid rgba(0, 255, 0, 0.2);
+    }
+
+    .navbar.active {
+        display: block;
+    }
+
+    .navbar a {
+        display: block;
+        margin-top: 25px;
+    }
+
+    .MainLogo {
+        width: 300px; 
+        height: 300px
+    }
+}

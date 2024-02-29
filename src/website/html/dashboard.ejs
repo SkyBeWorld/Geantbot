@@ -24,5 +24,29 @@
             <img src="assets/menu.png" class="menu" id="menu-icon">
         </header>
         <br><br><br><br><br><br><br>
+        <div class="head">
+            <h1 class="Text">Welcome, @<%= username %></h1>
+            <br>
+            <h3 class="Text">You server doesn't show? <a href="/invite">invite the bot now!</a></h3>
+        </div>
+        <div class="servers">
+            <h1 class="Text">Current servers</h1>
+            <br><br>
+            <section class="servers_list">
+                <ul class="server_list">
+                    <% for (var i = 0; i < guilds.length; i++) { %>
+                        <% if (guilds[i].hasPerm) { %>
+                            <li class="server">
+                                <div class="access">
+                                    <img src="<%= guilds[i].avatar %>" class="icon">
+                                    <h1 class="Text"><%= guilds[i].name %></h1>
+                                    <a class="button" href="/server/<%= guilds[i].id %>">configure</a>
+                                </div>
+                            </li>
+                        <% } %>
+                    <% } %>
+                </ul>
+            </section>
+        </div>
     </body>
 </html>
