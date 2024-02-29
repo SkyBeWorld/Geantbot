@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, CommandInteraction, PermissionFlagsBits, ChatInputCommandInteraction, Client, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js") 
+const { translation } = require("../../utils/translation")
 
 module.exports = {
     data: new SlashCommandBuilder()
