@@ -11,6 +11,20 @@ const config = require("../config.json")
 const fs = require("fs")
 const ascii = require("ascii-table")
 require("dotenv").config()
+const process = require("node:process")
+const { Agent } = require("undici")
+
+process.on("unhandledRejection", async (r, p) => {
+    console.log(p, r)
+})
+
+process.on("uncaughtException", async (r) => {
+    console.log(r)
+})
+
+process.on("uncaughtExceptionMonitor", async (r, o) => {
+    console.log(r, o)
+})
 
 // discord client
 
@@ -18,6 +32,13 @@ const client = new Client({
     intents: 131071,
     partials: [Channel, GuildMember, Message, Reaction, ThreadMember, User, GuildScheduledEvent]
 })
+const agent = new Agent({
+    connect: {
+        timeout: 10_000
+    }
+})
+
+client.rest.setAgent(agent)
 
 client.login(process.env.token).then(async (e) => {
     loadEvents(client)
