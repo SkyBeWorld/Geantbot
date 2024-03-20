@@ -73,6 +73,10 @@ body {
     margin-left: 52px;
 }
 
+.main {
+    height: 650px;
+}
+
 .settings {
     height: 500px;
     width: 1550px;
@@ -80,11 +84,48 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
     border-bottom: 2px solid rgba(0, 56, 34, 0);
     border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .settings .txt {
-    text-align: center;
     color: black;
+}
+
+.settings .sets {
+    height: 100%;
+    margin-left: 0;
+    width: 18%;
+    float: left;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    background: linear-gradient(180deg, rgb(75, 75, 75, 75), rgb(52, 52, 52, 52));
+    border-radius: 50px;
+    overflow-y: auto
+}
+
+.settings .sets a {
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+}
+
+.settings #current {
+    color: white;
+}
+
+.settings .sets .selection {
+    margin-bottom: 10%;
+    transition: 0.2s;
+}
+
+.settings .sets .selection:hover {
+    transform: scale(1.5);
+}
+
+#selected {
+    color: green;
+    transform: scale(2);
 }
 
 @media only screen and (max-width: 1000px) {

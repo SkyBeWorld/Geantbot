@@ -8,12 +8,12 @@
         <meta content="Geantbot website" property="og:description" />
         <meta content="https://geantbot.xyz" property="og:url" />
         <meta content="https://geantbot.xyz/assets/logo.png" property="og:image"/>
-        <link rel="stylesheet" type="text/css" href="../css/guild.css">
-        <link rel="icon" type="image/png" href="../assets/logo.png">
+        <link rel="stylesheet" type="text/css" href="../../css/guild.css">
+        <link rel="icon" type="image/png" href="../../assets/logo.png">
     </head>
     <body>
         <header class="header">
-            <img src="../assets/logo.png" width="100px" height="100px" onclick="window.location.href='/'" class="logo">
+            <img src="../../assets/logo.png" width="100px" height="100px" onclick="window.location.href='/'" class="logo">
             <nav class="navbar">
                 <a href="/">Home</a>
                 <a href="#">Terms of Service</a>
@@ -21,7 +21,7 @@
                 <a href="#">Documentation</a>
                 <a href="/logout">Logout (logged as <%= username %>)</a>
             </nav>
-            <img src="../assets/menu.png" class="menu" id="menu-icon">
+            <img src="../../assets/menu.png" class="menu" id="menu-icon">
         </header>
         <br><br><br><br><br><br><br>
         <div class="head">
@@ -35,7 +35,7 @@
                 <div class="sets">
                     <h2 class="txt" id="current">Current settings</h2>
                     <br>
-                    <p><a href="/server/<%= guild.id %>/config" class="selection">Global services</a></p>
+                    <p><a href="/server/<%= guild.id %>/config" class="selection" id="selected">Global services</a></p>
                     <p><a href="/server/<%= guild.id %>/systems" class="selection">Welcome/Goodbye service</a></p>
                     <p><a href="/server/<%= guild.id %>/rank" class="selection">Rank service</a></p>
                     <p><a href="/server/<%= guild.id %>/ticket" class="selection">Tickets service</a></p>
@@ -44,7 +44,7 @@
                     <p><a href="/server/<%= guild.id %>/automod" class="selection">Automod service</a></p>
                 </div>
                 <div class="CurrentSelect">
-                    <h1 class="txt">Please select a setting!</h1>
+                    <h1 class="txt">a setting!</h1>
                 </div>
             </div>
         </div>
