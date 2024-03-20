@@ -8,12 +8,12 @@
         <meta content="Geantbot website" property="og:description" />
         <meta content="https://geantbot.xyz" property="og:url" />
         <meta content="https://geantbot.xyz/assets/logo.png" property="og:image"/>
-        <link rel="stylesheet" type="text/css" href="css/guild.css">
-        <link rel="icon" type="image/png" href="/assets/logo.png">
+        <link rel="stylesheet" type="text/css" href="../css/guild.css">
+        <link rel="icon" type="image/png" href="../assets/logo.png">
     </head>
     <body>
         <header class="header">
-            <img src="./assets/logo.png" width="100px" height="100px" onclick="window.location.href='/'" class="logo">
+            <img src="../assets/logo.png" width="100px" height="100px" onclick="window.location.href='/'" class="logo">
             <nav class="navbar">
                 <a href="/" class="selected">Home</a>
                 <a href="#">Terms of Service</a>
@@ -21,11 +21,19 @@
                 <a href="#">Documentation</a>
                 <a href="/logout">Logout (logged as <%= username %>)</a>
             </nav>
-            <img src="assets/menu.png" class="menu" id="menu-icon">
+            <img src="../assets/menu.png" class="menu" id="menu-icon">
         </header>
         <br><br><br><br><br><br><br>
-
-
-        <script src="/Scripts/menu.js"></script>
+        <div class="head">
+            <h1 class="Text">Welcome, @<%= username %>, let's configure <%= guild.name %></h1>
+        </div>
+        <br>
+        <div class="settings">
+            <h1 class="txt">Please select a setting!
+                
+            </h1>
+        </div>
+        <br>
+        <script src="../Scripts/menu.js"></script>
     </body>
 </html>

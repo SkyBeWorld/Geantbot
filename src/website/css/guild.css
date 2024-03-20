@@ -73,6 +73,20 @@ body {
     margin-left: 52px;
 }
 
+.settings {
+    height: 500px;
+    width: 1550px;
+    background: linear-gradient(180deg, rgb(150, 150, 150, 150), rgb(52, 52, 52, 52));
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    border-bottom: 2px solid rgba(0, 56, 34, 0);
+    border-radius: 50px;
+}
+
+.settings .txt {
+    text-align: center;
+    color: black;
+}
+
 @media only screen and (max-width: 1000px) {
     .menu {
         display: block;
